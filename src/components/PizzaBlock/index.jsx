@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+const availableTypes = ['тонкое', 'традиционное'];
+const availableSizes = [26, 30, 40];
+
 const PizzaBlock = ({ imageUrl, name, price, sizes, types }) => {
   const [activeSize, setActiveSize] = useState(sizes[0]);
   const [activeType, setActiveType] = useState(types[0]);
-
-  const availableTypes = ['тонкое', 'традиционное'];
-  const availableSizes = [26, 30, 40];
 
   const onSelectSize = (size) => {
     setActiveSize(size);
@@ -50,7 +50,9 @@ const PizzaBlock = ({ imageUrl, name, price, sizes, types }) => {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
-        <div className="button button--outline button--add">
+        <div
+          className="button button--outline button--add"
+          onClick={() => console.log(availableTypes[activeType], activeSize, name, price, imageUrl)}>
           <svg
             width="12"
             height="12"

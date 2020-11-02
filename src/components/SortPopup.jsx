@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 const items = [
-  { name: 'популярности', type: 'popular' },
-  { name: 'цене', type: 'price' },
-  { name: 'алфавиту', type: 'alphabet' },
+  { name: 'популярности', type: 'popular', order: 'desc' },
+  { name: 'цене', type: 'price', order: 'desc' },
+  { name: 'алфавиту', type: 'name', order: 'asc' },
 ];
 
 const SortPopup = React.memo(({ activeSortType, onClickSortType }) => {
@@ -14,8 +14,8 @@ const SortPopup = React.memo(({ activeSortType, onClickSortType }) => {
     setVisiblePopup(!visiblePopup);
   };
 
-  const onSortMethodSelected = (type) => {
-    onClickSortType(type);
+  const onSortMethodSelected = (sortBy) => {
+    onClickSortType(sortBy);
     setVisiblePopup(false);
   };
 
@@ -54,12 +54,12 @@ const SortPopup = React.memo(({ activeSortType, onClickSortType }) => {
       {visiblePopup && (
         <div className="sort__popup">
           <ul>
-            {items.map(({ type, name }, idx) => (
+            {items.map((sortBy, idx) => (
               <li
-                key={`${type}_${idx}`}
-                className={activeSortType === type ? 'active' : ''}
-                onClick={() => onSortMethodSelected(type)}>
-                {name}
+                key={`${sortBy.type}_${idx}`}
+                className={activeSortType === sortBy.type ? 'active' : ''}
+                onClick={() => onSortMethodSelected(sortBy)}>
+                {sortBy.name}
               </li>
             ))}
           </ul>

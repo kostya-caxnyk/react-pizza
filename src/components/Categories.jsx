@@ -2,7 +2,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-const categoryNames = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+const categoryNames = ['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
 const Categories = React.memo(({ activeCategory, onClickCategory }) => {
   console.log('rerender');
@@ -10,6 +10,11 @@ const Categories = React.memo(({ activeCategory, onClickCategory }) => {
   return (
     <div className="categories">
       <ul>
+        <li
+          className={activeCategory === null ? 'active' : ''}
+          onClick={() => onClickCategory(null)}>
+          Все
+        </li>
         {categoryNames.map((name, index) => (
           <li
             className={index === activeCategory ? 'active' : ''}
