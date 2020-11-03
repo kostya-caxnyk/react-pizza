@@ -1,4 +1,5 @@
 import React from 'react';
+import CartItem from './CartItem';
 
 const CartContent = ({items}) => {
   return (
@@ -76,7 +77,7 @@ const CartContent = ({items}) => {
         </div>
       </div>
       <div className="content__items">
-        
+        {items.map((itemDetails, idx) => <CartItem key={idx} {...itemDetails}/>)}
       </div>
       <div className="cart__bottom">
         <div className="cart__bottom-details">
