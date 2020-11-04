@@ -1,7 +1,35 @@
 import React from 'react';
-import CartItem from './CartItem';
+import PropTypes from 'prop-types';
 
-const CartContent = ({items}) => {
+import CartItem from './CartItem';
+import {
+  removePizzaFromCart,
+  addPizzaToCart,
+  removePizzasByTypeFromCart,
+  removeAllPizzasFromCart,
+} from '../redux/actions/cart';
+import { useDispatch } from 'react-redux';
+
+const CartContent = ({ items, totalCount, totalPrice }) => {
+  console.log('cart content rendered');
+  const dispatch = useDispatch();
+
+  const onRemovePizza = React.useCallback((pizzaDetails) => {
+    dispatch(removePizzaFromCart(pizzaDetails));
+  }, []);
+
+  const onAddPizza = React.useCallback((pizzaDetails) => {
+    dispatch(addPizzaToCart(pizzaDetails));
+  }, []);
+
+  const onRemovePizzasByType = React.useCallback((pizzaDetails) => {
+    dispatch(removePizzasByTypeFromCart(pizzaDetails));
+  }, []);
+
+  const onRemoveAllPizzas = React.useCallback(() => {
+    dispatch(removeAllPizzasFromCart());
+  }, []);
+
   return (
     <div className="cart">
       <div className="cart__top">
@@ -36,7 +64,7 @@ const CartContent = ({items}) => {
           </svg>
           Корзина
         </h2>
-        <div className="cart__clear">
+        <div className="cart__clear" onClick={onRemoveAllPizzas}>
           <svg
             width="20"
             height="20"
@@ -77,17 +105,25 @@ const CartContent = ({items}) => {
         </div>
       </div>
       <div className="content__items">
-        {items.map((itemDetails, idx) => <CartItem key={idx} {...itemDetails}/>)}
+        {items.map((pizza, idx) => (
+          <CartItem
+            key={idx}
+            pizza={pizza}
+            removePizza={onRemovePizza}
+            addPizza={onAddPizza}
+            removeAllPizzas={onRemovePizzasByType}
+          />
+        ))}
       </div>
       <div className="cart__bottom">
         <div className="cart__bottom-details">
           <span>
             {' '}
-            Всего пицц: <b>3 шт.</b>{' '}
+            Всего пицц: <b>{totalCount} шт.</b>{' '}
           </span>
           <span>
             {' '}
-            Сумма заказа: <b>900 ₽</b>{' '}
+            Сумма заказа: <b>{totalPrice} ₽</b>{' '}
           </span>
         </div>
         <div className="cart__bottom-buttons">
@@ -116,6 +152,18 @@ const CartContent = ({items}) => {
       </div>
     </div>
   );
+};
+
+CartContent.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object),
+  totalPrice: PropTypes.number,
+  totalCount: PropTypes.number,
+};
+
+CartContent.defaultProps = {
+  items: [],
+  totalPrice: 0,
+  totalCount: 0,
 };
 
 export default CartContent;

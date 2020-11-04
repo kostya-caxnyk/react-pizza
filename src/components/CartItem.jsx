@@ -1,17 +1,23 @@
 import React from 'react';
 
-const CartItem = ({ imgUrl, name, type, size, count, price }) => {
+const CartItem = ({ pizza, removePizza, addPizza, removeAllPizzas }) => {
+  const { imageUrl, name, type, size, id, totalCount, totalPrice } = pizza;
+
   return (
     <div className="cart__item">
       <div className="cart__item-img">
-        <img className="pizza-block__image" src={imgUrl} alt="Pizza" />
+        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
       </div>
       <div className="cart__item-info">
         <h3>{name}</h3>
-        <p>{type}, {size} см.</p>
+        <p>
+          {type} тесто, {size} см.
+        </p>
       </div>
       <div className="cart__item-count">
-        <div className="button button--outline button--circle cart__item-count-minus">
+        <div
+          className="button button--outline button--circle cart__item-count-minus"
+          onClick={() => removePizza({ id, type, size })}>
           <svg
             width="10"
             height="10"
@@ -28,8 +34,10 @@ const CartItem = ({ imgUrl, name, type, size, count, price }) => {
             />
           </svg>
         </div>
-        <b>{count}</b>
-        <div className="button button--outline button--circle cart__item-count-plus">
+        <b>{totalCount}</b>
+        <div
+          className="button button--outline button--circle cart__item-count-plus"
+          onClick={() => addPizza({ id, type, size })}>
           <svg
             width="10"
             height="10"
@@ -48,10 +56,12 @@ const CartItem = ({ imgUrl, name, type, size, count, price }) => {
         </div>
       </div>
       <div className="cart__item-price">
-        <b>{price} ₽</b>
+        <b>{totalPrice} ₽</b>
       </div>
       <div className="cart__item-remove">
-        <div className="button button--outline button--circle">
+        <div
+          className="button button--outline button--circle"
+          onClick={() => removeAllPizzas({ id, type, size, totalCount })}>
           <svg
             width="10"
             height="10"
