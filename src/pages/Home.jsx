@@ -6,6 +6,13 @@ import { setCategory, setSortBy } from '../redux/actions/filters';
 import { fetchPizzas } from '../redux/actions/pizzas';
 import { addPizzaToCart } from '../redux/actions/cart';
 
+//should have done that in redux
+const getCount = (id, items) => {
+  return items
+    .filter((item) => item.id === id)
+    .reduce((acc, { totalCount }) => acc + totalCount, 0);
+};
+
 const Home = () => {
   const dispatch = useDispatch();
 
@@ -44,7 +51,7 @@ const Home = () => {
                 key={pizzaDetails.id}
                 {...pizzaDetails}
                 onClickAddPizza={onAddPizzaToCart}
-                addedCount={cartItems[pizzaDetails.id] && cartItems[pizzaDetails.id].length}
+                addedCount={getCount(pizzaDetails.id, cartItems)}
               />
             ))
           : Array(12)

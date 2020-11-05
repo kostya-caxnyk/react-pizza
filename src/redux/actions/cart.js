@@ -19,8 +19,8 @@ export const removePizzasByTypeFromCart = (pizzaObj) => {
   };
 };
 
-export const removeAllPizzasFromCart = () => {
+export const clearCart = () => {
   return {
-    type: 'REMOVE_ALL_PIZZAS_CART',
+    type: 'CLEAR_CART',
   };
 };

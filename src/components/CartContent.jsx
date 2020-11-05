@@ -6,12 +6,12 @@ import {
   removePizzaFromCart,
   addPizzaToCart,
   removePizzasByTypeFromCart,
-  removeAllPizzasFromCart,
+  clearCart,
 } from '../redux/actions/cart';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const CartContent = ({ items, totalCount, totalPrice }) => {
-  console.log('cart content rendered');
   const dispatch = useDispatch();
 
   const onRemovePizza = React.useCallback((pizzaDetails) => {
@@ -26,9 +26,14 @@ const CartContent = ({ items, totalCount, totalPrice }) => {
     dispatch(removePizzasByTypeFromCart(pizzaDetails));
   }, []);
 
-  const onRemoveAllPizzas = React.useCallback(() => {
-    dispatch(removeAllPizzasFromCart());
+  const onClearCart = React.useCallback(() => {
+    dispatch(clearCart());
   }, []);
+
+  const onClickOrder = React.useCallback(() => {
+    window.alert('I also like pizza');
+    console.log(items);
+  }, [items]);
 
   return (
     <div className="cart">
@@ -64,7 +69,7 @@ const CartContent = ({ items, totalCount, totalPrice }) => {
           </svg>
           Корзина
         </h2>
-        <div className="cart__clear" onClick={onRemoveAllPizzas}>
+        <div className="cart__clear" onClick={onClearCart}>
           <svg
             width="20"
             height="20"
@@ -118,16 +123,14 @@ const CartContent = ({ items, totalCount, totalPrice }) => {
       <div className="cart__bottom">
         <div className="cart__bottom-details">
           <span>
-            {' '}
-            Всего пицц: <b>{totalCount} шт.</b>{' '}
+            Всего пицц: <b>{totalCount} шт.</b>
           </span>
           <span>
-            {' '}
-            Сумма заказа: <b>{totalPrice} ₽</b>{' '}
+            Сумма заказа: <b>{totalPrice} ₽</b>
           </span>
         </div>
         <div className="cart__bottom-buttons">
-          <a href="/" className="button button--outline button--add go-back-btn">
+          <Link to="/" className="button button--outline button--add go-back-btn">
             <svg
               width="8"
               height="14"
@@ -142,10 +145,10 @@ const CartContent = ({ items, totalCount, totalPrice }) => {
                 strokeLinejoin="round"
               />
             </svg>
-
             <span>Вернуться назад</span>
-          </a>
-          <div className="button pay-btn">
+          </Link>
+
+          <div className="button pay-btn" onClick={onClickOrder}>
             <span>Оплатить сейчас</span>
           </div>
         </div>

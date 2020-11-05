@@ -57,7 +57,7 @@ const cart = (state = initialState, action) => {
       return updateCart(state, action.payload, -1);
     case 'REMOVE_PIZZAS_BY_TYPE':
       return updateCart(state, action.payload, -action.payload.totalCount);
-    case 'REMOVE_ALL_PIZZAS_CART':
+    case 'CLEAR_CART':
       return {
         items: [],
         totalCount: 0,

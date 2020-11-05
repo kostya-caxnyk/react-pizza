@@ -9,7 +9,6 @@ const items = [
 
 const SortPopup = React.memo(({ activeSortType, onClickSortType }) => {
   const [visiblePopup, setVisiblePopup] = useState(false);
-
   const toggleVisiblePopup = () => {
     setVisiblePopup(!visiblePopup);
   };

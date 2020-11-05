@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 const CartItem = ({ pizza, removePizza, addPizza, removeAllPizzas }) => {
   const { imageUrl, name, type, size, id, totalCount, totalPrice } = pizza;
 
@@ -81,6 +83,13 @@ const CartItem = ({ pizza, removePizza, addPizza, removeAllPizzas }) => {
       </div>
     </div>
   );
+};
+
+CartItem.propTypes = {
+  pizza: PropTypes.object.isRequired,
+  removePizza: PropTypes.func.isRequired,
+  addPizza: PropTypes.func.isRequired,
+  removeAllPizzas: PropTypes.func.isRequired,
 };
 
 export default CartItem;

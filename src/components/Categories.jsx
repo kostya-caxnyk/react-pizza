@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 const categoryNames = ['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
 const Categories = React.memo(({ activeCategory, onClickCategory }) => {
-  console.log('rerender');
-
   return (
     <div className="categories">
       <ul>
