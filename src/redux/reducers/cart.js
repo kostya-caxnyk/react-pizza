@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isMatch } from 'lodash';
 
 const initialState = {
   items: [],
@@ -34,7 +34,7 @@ const updateCartItems = (item, idx, cartItems) => {
 };
 
 const updateCart = (state, pizzaObj, quantity) => {
-  const itemIdx = state.items.findIndex((obj) => _.isMatch(obj, pizzaObj));
+  const itemIdx = state.items.findIndex((obj) => isMatch(obj, pizzaObj));
   const itemInCart = state.items[itemIdx];
 
   const newCartItem = updateCartItem(itemInCart, pizzaObj, quantity);
